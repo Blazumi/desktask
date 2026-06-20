@@ -1,13 +1,8 @@
 package com.blazumi.desktask.service;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.blazumi.desktask.enums.TaskStatus;
-import com.blazumi.desktask.enums.TaskType;
 import com.blazumi.desktask.exception.BusinessException;
 import com.blazumi.desktask.model.Task;
 import com.blazumi.desktask.repository.TaskRepository;
@@ -20,11 +15,11 @@ public class TaskService {
 		this.taskRepository = taskRepository;
 	}
 	
-	public List<Task> findAllTasks() throws BusinessException{
+	public List<Task> findAllTasks(){
 		return taskRepository.findAll();
 	}
 	
-	public Task findTaskById(Long id) throws BusinessException{
+	public Task findTaskById(Long id){
 
 		return taskRepository.findById(id)
 				.orElseThrow(() -> new BusinessException("Id:" + id + "查無此任務"));
@@ -43,13 +38,15 @@ public class TaskService {
 		orgTask.setTaskType(task.getTaskType());
 		orgTask.setVisibility(task.getVisibility());
 		orgTask.setDueTime(task.getDueTime());
-		return orgTask;
+		return taskRepository.save(orgTask);
 	}
 	
 	public void deleteTask(Long id) {
 		Task task = findTaskById(id);
 		taskRepository.delete(task);
 	}
-		
+	
+	
+	
 	
 }

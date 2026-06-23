@@ -14,17 +14,25 @@ import com.blazumi.desktask.dto.TaskCreateRequest;
 import com.blazumi.desktask.dto.TaskResponse;
 import com.blazumi.desktask.dto.TaskUpdateRequest;
 import com.blazumi.desktask.model.Task;
+import com.blazumi.desktask.model.TaskRecipient;
+import com.blazumi.desktask.model.User;
 import com.blazumi.desktask.response.ApiResponse;
+import com.blazumi.desktask.service.TaskRecipientService;
 import com.blazumi.desktask.service.TaskService;
+import com.blazumi.desktask.service.UserService;
 
 import jakarta.validation.Valid;
 
 @RestController
 public class TaskController {
+	private final UserService userService;
 	private final TaskService taskService;
+	private final TaskRecipientService taskRecipientService;
 	
-	public TaskController (TaskService taskService) {
+	public TaskController (TaskService taskService, UserService userService, TaskRecipientService taskRecipientService) {
 		this.taskService = taskService;
+		this.userService = userService;
+		this.taskRecipientService = taskRecipientService;
 	}
 	
 	@GetMapping("/tasks")
@@ -39,6 +47,13 @@ public class TaskController {
 		return ApiResponse.success("查詢ID" + id +"成功：", toResponse(findTaskById));
 	}
 	
+	@GetMapping("/users/{userId}/tasks")
+	public ApiResponse<List<TaskResponse>> findByUserId(@PathVariable Long userId){
+		List<Task> userTasks = taskService.findByUserId(userId);
+		User user = userService.findUserById(userId);
+		return ApiResponse.success("使用者 " + user.getUsername() + "的任務：", toResponse(userTasks));
+	}
+	
 	@PostMapping("/tasks")
 	public ApiResponse<TaskResponse> addTask(@Valid @RequestBody TaskCreateRequest request){
 		Task task = new Task();
@@ -48,7 +63,10 @@ public class TaskController {
 		task.setTaskType(request.getTaskType());
 		task.setVisibility(request.getVisibility());
 		task.setDueTime(request.getDueTime());
+		task.setUser(userService.findUserById(request.getUserId()));
+		
 		Task saveTask = taskService.addTask(task);
+		taskRecipientService.addRecipients(saveTask, request.getRecipientUserIds());
 		return ApiResponse.success("添加任務成功", toResponse(saveTask));
 	}
 	
@@ -82,6 +100,11 @@ public class TaskController {
 		response.setTaskType(task.getTaskType());
 		response.setVisibility(task.getVisibility());
 		response.setDueTime(task.getDueTime());
+		if(task.getUser() != null) {
+			response.setUserId(task.getUser().getId());
+			response.setUsername(task.getUser().getUsername());
+		}
+
 		return response;
 	}
 	

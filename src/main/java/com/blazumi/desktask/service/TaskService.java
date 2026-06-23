@@ -3,6 +3,8 @@ package com.blazumi.desktask.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
+import com.blazumi.desktask.enums.Visibility;
 import com.blazumi.desktask.exception.BusinessException;
 import com.blazumi.desktask.model.Task;
 import com.blazumi.desktask.repository.TaskRepository;
@@ -10,9 +12,11 @@ import com.blazumi.desktask.repository.TaskRepository;
 @Service
 public class TaskService {
 
+	private final UserService userService;
 	private final TaskRepository taskRepository;
-	public TaskService(TaskRepository taskRepository) {
+	public TaskService(TaskRepository taskRepository, UserService userService) {
 		this.taskRepository = taskRepository;
+		this.userService = userService;
 	}
 	
 	public List<Task> findAllTasks(){
@@ -23,6 +27,11 @@ public class TaskService {
 
 		return taskRepository.findById(id)
 				.orElseThrow(() -> new BusinessException("Id:" + id + "查無此任務"));
+	}
+	
+	public List<Task> findByUserId(Long userId){
+		userService.findUserById(userId);
+		return taskRepository.findByUserId(userId);
 	}
 	
 	public Task addTask(Task task) {

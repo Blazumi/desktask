@@ -1,6 +1,7 @@
 package com.blazumi.desktask.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.blazumi.desktask.enums.TaskStatus;
 import com.blazumi.desktask.enums.TaskType;
@@ -32,4 +33,9 @@ public class TaskCreateRequest {
 
     @NotNull(message = "到期時間不可為空")
     private LocalDateTime dueTime;
+    
+    @NotNull(message = "使用者ID不可為空")
+    private Long userId;
+    
+    private List<Long> recipientUserIds;
 }

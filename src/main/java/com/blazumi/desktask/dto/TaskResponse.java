@@ -18,4 +18,6 @@ public class TaskResponse {
 	private TaskType taskType;
 	private Visibility visibility;
 	private LocalDateTime dueTime;
+	private Long userId;
+	private String username;
 }

@@ -12,7 +12,7 @@ import com.blazumi.desktask.repository.TaskRecipientRepository;
 @Service
 public class TaskRecipientService {
 
-	private final TaskRecipientRepository taskRecipientRepository;
+  	private final TaskRecipientRepository taskRecipientRepository;
 	private final UserService userService;
 	public TaskRecipientService(TaskRecipientRepository taskRecipientRepository, UserService userService) {
 		this.taskRecipientRepository = taskRecipientRepository;
@@ -31,5 +31,9 @@ public class TaskRecipientService {
 			recipient.setUser(user);
 			taskRecipientRepository.save(recipient);
 		}
+	}
+	
+	public List<TaskRecipient> findByUserId(Long userId){
+		return taskRecipientRepository.findByUserId(userId);
 	}
 }

@@ -14,7 +14,6 @@ import com.blazumi.desktask.dto.TaskCreateRequest;
 import com.blazumi.desktask.dto.TaskResponse;
 import com.blazumi.desktask.dto.TaskUpdateRequest;
 import com.blazumi.desktask.model.Task;
-import com.blazumi.desktask.model.TaskRecipient;
 import com.blazumi.desktask.model.User;
 import com.blazumi.desktask.response.ApiResponse;
 import com.blazumi.desktask.service.TaskRecipientService;

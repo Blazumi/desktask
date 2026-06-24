@@ -33,7 +33,6 @@ public class UserService {
 		User orgUser = findUserById(id);
 		
 		orgUser.setUsername(user.getUsername());
-		orgUser.setPassword(user.getPassword());
 		orgUser.setEmail(user.getEmail());
 		orgUser.setRole(user.getRole());
 		

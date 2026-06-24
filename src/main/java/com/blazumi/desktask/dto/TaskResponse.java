@@ -2,6 +2,7 @@ package com.blazumi.desktask.dto;
 
 import java.time.LocalDateTime;
 
+import com.blazumi.desktask.enums.TaskPriority;
 import com.blazumi.desktask.enums.TaskStatus;
 import com.blazumi.desktask.enums.TaskType;
 import com.blazumi.desktask.enums.Visibility;
@@ -15,6 +16,7 @@ public class TaskResponse {
 	private String title;
 	private String description;
 	private TaskStatus status;
+	private TaskPriority priority;
 	private TaskType taskType;
 	private Visibility visibility;
 	private LocalDateTime dueTime;

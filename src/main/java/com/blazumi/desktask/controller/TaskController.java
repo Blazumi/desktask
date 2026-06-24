@@ -1,4 +1,5 @@
 package com.blazumi.desktask.controller;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class TaskController {
 		task.setTitle(request.getTitle());
 		task.setDescription(request.getDescription());
 		task.setStatus(request.getStatus());
+		task.setPriority(request.getPriority());
 		task.setTaskType(request.getTaskType());
 		task.setVisibility(request.getVisibility());
 		task.setDueTime(request.getDueTime());
@@ -70,11 +72,12 @@ public class TaskController {
 	}
 	
 	@PutMapping("/tasks/{id}")
-	public ApiResponse<TaskResponse> updateTask(@Valid @PathVariable Long id, @RequestBody TaskUpdateRequest request) {
+	public ApiResponse<TaskResponse> updateTask(@PathVariable Long id,@Valid @RequestBody TaskUpdateRequest request) {
 		Task task = new Task();
 		task.setTitle(request.getTitle());
 		task.setDescription(request.getDescription());
 		task.setStatus(request.getStatus());
+		task.setPriority(request.getPriority());
 		task.setTaskType(request.getTaskType());
 		task.setVisibility(request.getVisibility());
 		task.setDueTime(request.getDueTime());

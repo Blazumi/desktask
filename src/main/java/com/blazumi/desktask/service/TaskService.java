@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.blazumi.desktask.enums.Visibility;
 import com.blazumi.desktask.exception.BusinessException;
 import com.blazumi.desktask.model.Task;
 import com.blazumi.desktask.repository.TaskRepository;
@@ -44,6 +43,7 @@ public class TaskService {
 		orgTask.setTitle(task.getTitle());
 		orgTask.setDescription(task.getDescription());
 		orgTask.setStatus(task.getStatus());
+		orgTask.setPriority(task.getPriority());
 		orgTask.setTaskType(task.getTaskType());
 		orgTask.setVisibility(task.getVisibility());
 		orgTask.setDueTime(task.getDueTime());

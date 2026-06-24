@@ -2,6 +2,7 @@ package com.blazumi.desktask.model;
 
 import java.time.LocalDateTime;
 
+import com.blazumi.desktask.enums.TaskPriority;
 import com.blazumi.desktask.enums.TaskStatus;
 import com.blazumi.desktask.enums.TaskType;
 import com.blazumi.desktask.enums.Visibility;
@@ -45,7 +46,10 @@ public class Task {
 	@Column(nullable = false)
 	private Visibility visibility;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
+	private TaskPriority priority = TaskPriority.NORMAL;
+	
 	private LocalDateTime dueTime;
 	
 	@ManyToOne

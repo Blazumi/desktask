@@ -81,6 +81,7 @@ public class TaskController {
 		task.setTaskType(request.getTaskType());
 		task.setVisibility(request.getVisibility());
 		task.setDueTime(request.getDueTime());
+		task.setVersion(request.getVersion());
 		
 		Task updateTask = taskService.updateTask(id, task);
 		return ApiResponse.success("修改成功", toResponse(updateTask));
@@ -102,6 +103,9 @@ public class TaskController {
 		response.setTaskType(task.getTaskType());
 		response.setVisibility(task.getVisibility());
 		response.setDueTime(task.getDueTime());
+		response.setCreatAt(task.getCreateAt());
+		response.setUpdateAt(task.getUpdateAt());
+		response.setVersion(task.getVersion());
 		if(task.getUser() != null) {
 			response.setUserId(task.getUser().getId());
 			response.setUsername(task.getUser().getUsername());

@@ -1,6 +1,8 @@
 package com.blazumi.desktask.service;
 
 import java.util.List;
+import java.util.Objects;
+
 
 import org.springframework.stereotype.Service;
 
@@ -39,7 +41,9 @@ public class TaskService {
 	
 	public Task updateTask(Long id, Task task) {
 		Task orgTask = findTaskById(id);
-		
+		if(!Objects.equals(orgTask.getVersion(), task.getVersion())) {
+			throw new BusinessException("任務已被其他使用者更新，請重新取得最新資料再修改");
+		}
 		orgTask.setTitle(task.getTitle());
 		orgTask.setDescription(task.getDescription());
 		orgTask.setStatus(task.getStatus());

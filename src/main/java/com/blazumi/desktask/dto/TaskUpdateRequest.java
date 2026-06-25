@@ -38,6 +38,9 @@ public class TaskUpdateRequest {
 	
 	private LocalDateTime dueTime;
 	
+	@NotNull(message = "任務版本不可為空")
+	private Long version;
+	
 	@AssertTrue(message = "一般任務必須設定截止時間")
 	public boolean isDueTimeValid() {
 		if(taskType == null) {

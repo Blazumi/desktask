@@ -2,6 +2,10 @@ package com.blazumi.desktask.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import com.blazumi.desktask.enums.TaskPriority;
 import com.blazumi.desktask.enums.TaskStatus;
 import com.blazumi.desktask.enums.TaskType;
@@ -9,6 +13,7 @@ import com.blazumi.desktask.enums.Visibility;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -17,11 +22,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "task")
+@EntityListeners(AuditingEntityListener.class)
 public class Task {
 
 	@Id
@@ -55,6 +62,17 @@ public class Task {
 	@ManyToOne
 	@JoinColumn(name= "user_id")
 	private User user;
+	
+	@CreatedDate
+	@Column(updatable = false, nullable = false)
+	private LocalDateTime createAt;
+	
+	@LastModifiedDate
+	@Column(nullable = false)
+	private LocalDateTime updateAt;
+	
+	@Version
+	private Long version;
 	
 	
 	

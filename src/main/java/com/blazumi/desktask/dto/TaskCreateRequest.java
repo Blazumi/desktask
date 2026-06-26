@@ -49,6 +49,6 @@ public class TaskCreateRequest {
     		return true;
     	}
     	
-    	return taskType == TaskType.MEMO || dueTime == null;
+    	return taskType == TaskType.MEMO || dueTime != null;
     }
 }

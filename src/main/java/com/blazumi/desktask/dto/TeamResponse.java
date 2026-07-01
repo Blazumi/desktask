@@ -14,5 +14,5 @@ public class TeamResponse {
 	private String managerUsername;
 	
 	private LocalDateTime createAt;
-	private LocalDateTime UpdateAt;
+	private LocalDateTime updateAt;
 }
